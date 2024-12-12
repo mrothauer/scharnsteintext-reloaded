@@ -61,8 +61,7 @@ function fetchImages() {
                 });
             });
 
-            // Initialize GLightbox with no animation if screen width is greater than 600px
-            if (window.matchMedia('(min-width: 600px)').matches) {
+            if (!isMobile()) {
                 GLightbox({
                     selector: 'a[data-gallery="gallery"]',
                     openEffect: 'none',
@@ -73,6 +72,13 @@ function fetchImages() {
         .catch(error => {
             console.error('Error fetching images:', error);
         });
+}
+
+function isMobile() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    // Check for common mobile devices
+    return /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
 }
 
 fetchImages();
