@@ -18,9 +18,12 @@ function fetchImages() {
 
             // fetch all links that contain images and exclude slideshow.gif
             let imgLinks = Array.from(doc.querySelectorAll('a img'))
-                .map(img => ({
-                    imgSrc: new URL(img.getAttribute('src').replace('_thumb', ''), targetUrl).href
-                }))
+                .map(img => {
+                    let imgSrc = new URL(img.getAttribute('src').replace('_thumb', ''), targetUrl).href;
+                    // Ensure the protocol is HTTPS
+                    imgSrc = imgSrc.replace(/^http:\/\//i, 'https://');
+                    return { imgSrc };
+                })
                 .filter(link => !['slideshow.gif', 'titelbild27_4_2020.jpg', 'fsin11_18.jpg'].some(exclude => link.imgSrc.includes(exclude)));
 
             console.log('Image sources extracted:', performance.now() - startTime, 'ms');
