@@ -38,9 +38,27 @@ function fetchImages() {
                 a.setAttribute('data-gallery', 'gallery');
                 const img = document.createElement('img');
                 img.src = link.imgSrc;
+                img.className = 'gallery-img';
                 a.appendChild(img);
                 div.appendChild(a);
                 gallery.appendChild(div);
+
+                // Apply "seen" state if stored in local storage
+                if (localStorage.getItem(link.imgSrc) === 'seen') {
+                    img.style.opacity = '0.3';
+                }
+
+                // Add click event listener to toggle "seen" state
+                img.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    if (img.style.opacity === '0.2') {
+                        img.style.opacity = '1';
+                        localStorage.removeItem(link.imgSrc);
+                    } else {
+                        img.style.opacity = '0.2';
+                        localStorage.setItem(link.imgSrc, 'seen');
+                    }
+                });
             });
 
             // Initialize GLightbox with no animation
