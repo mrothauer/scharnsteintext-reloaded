@@ -45,17 +45,17 @@ function fetchImages() {
 
                 // Apply "seen" state if stored in local storage
                 if (localStorage.getItem(link.imgSrc) === 'seen') {
-                    img.style.opacity = '0.3';
+                    img.classList.add('seen');
                 }
 
                 // Add click event listener to toggle "seen" state
                 img.addEventListener('click', (event) => {
                     event.preventDefault();
-                    if (img.style.opacity === '0.3') {
-                        img.style.opacity = '1';
+                    if (img.classList.contains('seen')) {
+                        img.classList.remove('seen');
                         localStorage.removeItem(link.imgSrc);
                     } else {
-                        img.style.opacity = '0.3';
+                        img.classList.add('seen');
                         localStorage.setItem(link.imgSrc, 'seen');
                     }
                 });

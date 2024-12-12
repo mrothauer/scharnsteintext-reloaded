@@ -28,6 +28,12 @@ body {
     max-width: 100%;
     object-fit: contain; /* Ensure the entire image is visible */
     display: block;
+    transition: opacity 0.5s ease, filter 0.5s ease; /* Add transition for smooth animation */
+}
+
+.seen {
+    opacity: 0.4;
+    filter: grayscale(100%); /* Apply grayscale to make it clearer that the image has been seen */
 }
 
 /* Media query for mobile devices */
