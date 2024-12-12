@@ -12,7 +12,7 @@ async function fetchGalleryImagesMetaData() {
         let doc = parser.parseFromString(data.contents, 'text/html');
 
         const imgLinks = [];
-        const regex = /<a href="([^"]+\.(jpg|jpeg|png|gif))">[^<]+<\/a><\/td>\s*<td align="right">([^<]+)<\/td>/gi;
+        const regex = /<a href="([^"]+(?<!_thumb)\.(jpg|jpeg|png|gif))">[^<]+<\/a><\/td>\s*<td align="right">([^<]+)<\/td>/gi;
         let match;
 
         while ((match = regex.exec(data.contents)) !== null) {
@@ -20,6 +20,7 @@ async function fetchGalleryImagesMetaData() {
             const lastModified = new Date(match[3].trim().replace(/-/g, '/')); // Replace '-' with '/' for better parsing
             imgLinks.push({ imgSrc, lastModified });
         }
+        console.log('Image metadata extracted from gallery:', imgLinks.length);
         return imgLinks;
     } catch (error) {
         console.error('Error fetching images:', error);
