@@ -21,8 +21,18 @@ body {
     align-items: center;
     height: 400px; /* Set a fixed height for grid items */
     background-color: white; /* Set background color to white */
+    position: relative;
 }
-
+.grid-item > div {
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size:.7em;
+}
 .grid-item img {
     max-height: 100%;
     max-width: 100%;

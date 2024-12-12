@@ -9,15 +9,15 @@ async function fetchGalleryImagesMetaData() {
         }
         const data = await response.json();
         let parser = new DOMParser();
+        let doc = parser.parseFromString(data.contents, 'text/html');
 
         const imgLinks = [];
         const regex = /<a href="([^"]+\.(jpg|jpeg|png|gif))">[^<]+<\/a><\/td>\s*<td align="right">([^<]+)<\/td>/gi;
         let match;
 
         while ((match = regex.exec(data.contents)) !== null) {
-            console.log(match);
             const imgSrc = new URL(match[1], targetUrl).href;
-            const lastModified = new Date(match[3].trim());
+            const lastModified = new Date(match[3].trim().replace(/-/g, '/')); // Replace '-' with '/' for better parsing
             imgLinks.push({ imgSrc, lastModified });
         }
         return imgLinks;
@@ -79,6 +79,13 @@ function fetchImages() {
                     img.className = 'gallery-img';
                     a.appendChild(img);
                     div.appendChild(a);
+
+                    // Create and append the date element
+                    const dateDiv = document.createElement('div');
+                    const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+                    dateDiv.textContent = link.lastModified.toLocaleDateString('de-DE', options);
+                    div.appendChild(dateDiv);
+
                     gallery.appendChild(div);
 
                     // Apply "seen" state if stored in local storage
