@@ -62,7 +62,7 @@ function fetchImages() {
             });
 
             // Initialize GLightbox with no animation if screen width is greater than 600px
-            if (window.innerWidth > 600) {
+            if (window.matchMedia('(min-width: 600px)').matches) {
                 GLightbox({
                     selector: 'a[data-gallery="gallery"]',
                     openEffect: 'none',
