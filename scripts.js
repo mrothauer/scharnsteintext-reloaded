@@ -59,26 +59,22 @@ function fetchImages() {
                         localStorage.setItem(link.imgSrc, 'seen');
                     }
                 });
-            });
 
-            if (!isMobile()) {
-                GLightbox({
-                    selector: 'a[data-gallery="gallery"]',
-                    openEffect: 'none',
-                    closeEffect: 'none'
+                // Add double-click event listener to open lightbox
+                img.addEventListener('dblclick', (event) => {
+                    event.preventDefault();
+                    const lightbox = GLightbox({
+                        selector: 'a[data-gallery="gallery"]',
+                        openEffect: 'none',
+                        closeEffect: 'none'
+                    });
+                    lightbox.open();
                 });
-            }
+            });
         })
         .catch(error => {
             console.error('Error fetching images:', error);
         });
-}
-
-function isMobile() {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-    // Check for common mobile devices
-    return /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
 }
 
 fetchImages();
