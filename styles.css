@@ -32,8 +32,11 @@ body {
 
 /* Media query for mobile devices */
 @media (max-width: 600px) {
+
     .grid-container {
         grid-template-columns: 1fr; /* Single column layout on mobile */
+        gap: 5px;
+        padding: 5px;
     }
 
     .grid-item {
