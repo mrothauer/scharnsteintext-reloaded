@@ -1,6 +1,6 @@
 function fetchImages() {
     const proxyUrl = 'https://api.allorigins.win/get?url=';
-    const targetUrl = 'http://www.scharnstein.net/gallery/gallery.html';
+    const targetUrl = 'https://www.scharnstein.net/gallery/gallery.html';
     console.log('Fetching images...');
     const startTime = performance.now();
     fetch(proxyUrl + encodeURIComponent(targetUrl))
