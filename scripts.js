@@ -17,15 +17,11 @@ function fetchImages() {
             let doc = parser.parseFromString(data.contents, 'text/html');
 
             // fetch all links that contain images and exclude slideshow.gif
-            let imgLinks = Array.from(doc.querySelectorAll('a'))
-                .filter(a => a.querySelector('img') && a.getAttribute('href').endsWith('.html'))
-                .map(a => ({
-                    imgSrc: new URL(a.querySelector('img').getAttribute('src').replace('_thumb', ''), targetUrl).href,
-                    linkHref: new URL(a.getAttribute('href'), targetUrl).href
+            let imgLinks = Array.from(doc.querySelectorAll('a img'))
+                .map(img => ({
+                    imgSrc: new URL(img.getAttribute('src').replace('_thumb', ''), targetUrl).href
                 }))
-                .filter(link => !link.imgSrc.includes('slideshow.gif'))
-                .filter(link => !link.imgSrc.includes('titelbild27_4_2020.jpg'))
-                .filter(link => !link.imgSrc.includes('fsin11_18.jpg'));
+                .filter(link => !['slideshow.gif', 'titelbild27_4_2020.jpg', 'fsin11_18.jpg'].some(exclude => link.imgSrc.includes(exclude)));
 
             console.log('Image sources extracted:', performance.now() - startTime, 'ms');
 
