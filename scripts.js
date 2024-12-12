@@ -60,17 +60,14 @@ function fetchImages() {
                     }
                 });
 
-                // Add double-click event listener to open lightbox
                 img.addEventListener('dblclick', (event) => {
                     event.preventDefault();
-                    const lightbox = GLightbox({
-                        selector: 'a[data-gallery="gallery"]',
-                        openEffect: 'none',
-                        closeEffect: 'none'
-                    });
-                    lightbox.open();
+                    Fancybox.show([{ src: link.imgSrc, type: 'image' }]);
                 });
+
             });
+
+
         })
         .catch(error => {
             console.error('Error fetching images:', error);
