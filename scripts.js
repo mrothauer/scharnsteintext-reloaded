@@ -51,22 +51,24 @@ function fetchImages() {
                 // Add click event listener to toggle "seen" state
                 img.addEventListener('click', (event) => {
                     event.preventDefault();
-                    if (img.style.opacity === '0.2') {
+                    if (img.style.opacity === '0.3') {
                         img.style.opacity = '1';
                         localStorage.removeItem(link.imgSrc);
                     } else {
-                        img.style.opacity = '0.2';
+                        img.style.opacity = '0.3';
                         localStorage.setItem(link.imgSrc, 'seen');
                     }
                 });
             });
 
-            // Initialize GLightbox with no animation
-            const lightbox = GLightbox({
-                selector: 'a[data-gallery="gallery"]',
-                openEffect: 'none',
-                closeEffect: 'none'
-            });
+            // Initialize GLightbox with no animation if screen width is greater than 600px
+            if (window.innerWidth > 600) {
+                GLightbox({
+                    selector: 'a[data-gallery="gallery"]',
+                    openEffect: 'none',
+                    closeEffect: 'none'
+                });
+            }
         })
         .catch(error => {
             console.error('Error fetching images:', error);
