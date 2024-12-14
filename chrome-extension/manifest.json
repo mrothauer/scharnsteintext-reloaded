@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Scharnsteintext Reloaded",
+  "version": "1.0",
+  "description": "Modern layout for Scharnsteintext.",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://www.scharnstein.net/gallery/gallery.html"],
+      "js": ["fancybox.umd.js","content.js"],
+      "css": ["fancybox.css","content.css"]
+    }
+  ]
+}
